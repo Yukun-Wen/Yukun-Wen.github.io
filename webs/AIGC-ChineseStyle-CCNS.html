@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIGC-ChineseStyle-CCNS/title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #36292f;
+            overflow: hidden;
+            transition: background-color 2s ease; /* 添加过渡效果 */
+        }
+
+        .slideshow-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 400px;  /* 调整图片最大宽度 */
+            text-align: center;
+        }
+
+        .slideshow-container img {
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 10px;
+    animation: flow 3s infinite;
+}
+
+/* 流光特效 */
+@keyframes flow {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.973);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+}
+
+        /* 按钮相关代码 */
+        .button-container {
+            position: absolute;
+            top: -60px; /* 确保按钮在图片上方 */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+        .return-button {
+            padding: 10px 30px;
+            background-color: rgba(0, 0, 0, 0.13);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15vh;
+        }
+    </style>
+</head>
+<body>
+    <!-- 新增顶部按钮 -->
+    <div class="button-container">
+        <button class="return-button" onclick="window.open('../Index.html')">Return AIGC</button>
+    </div>
+    <div class="slideshow-container">
+        <img id="slideshow" src="../assets/AIGC/ChinieseStyle/TheSongsofChuNineSongs/TheSongsofChuNineSongs_01.png" alt="Slideshow Image">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalImages = 8;
+            const imageFolderPath = "../assets/AIGC/ChinieseStyle/TheSongsofChuNineSongs";
+            const colors = [
+                "#36292f", "#c0c4c3", "#e2e1e4", "#e9ddb6", "#f9f1db", "#82202b", "#648e93", "#126e82"
+            ];
+            let currentImageIndex = 0;
+
+            const slideshowImage = document.getElementById('slideshow');
+
+            function updateImage() {
+                const imageNumber = (currentImageIndex + 1).toString().padStart(2, '0');
+                slideshowImage.src = `${imageFolderPath}/TheSongsofChuNineSongs_${imageNumber}.png`;
+                document.body.style.backgroundColor = colors[currentImageIndex];
+                currentImageIndex = (currentImageIndex + 1) % totalImages;
+            }
+
+            function startSlideshow() {
+                setTimeout(() => {
+                    updateImage();
+                    setInterval(updateImage, 3000);
+                }, 1000); // 首次显示图片1秒
+            }
+
+            startSlideshow();
+
+            // 点击图片时切换到下一张
+            slideshowImage.addEventListener('click', updateImage);
+        });
+    </script>
+</body>
+</html>

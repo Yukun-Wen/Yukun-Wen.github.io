@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Code Rain</title>
+    <style>
+        /* 设置body样式，使内容居中显示 */
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(45deg, #d11a2d, #1661ab, #45b787, #e2d849, #e16723, #0f95b0);
+            background-size: 300% 300%; /* 增大背景大小以显示更多颜色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            animation: gradientBackground 30s ease infinite;
+        }
+
+        /* 定义背景渐变动画 */
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 设置图片容器，包含荧光蓝边缘和闪烁特效 */
+        .slideshow-container {
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 25%; /* 默认情况下缩小闪光范围 */
+            height: auto;
+            border: 2px solid #00aaff;
+            box-shadow: 0 0 15px #00aaff;
+        }
+
+        /* 在手机上设置图片容器 */
+        @media (max-width: 600px) {
+            .slideshow-container {
+                width: auto;
+                height: 70%; /* 高度占屏幕的70% */
+            }
+            img {
+                width: auto;
+                height: 100%; /* 宽度自动调整 */
+            }
+        }
+
+        /* 设置图片样式 */
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            opacity: 0.85;
+        }
+
+        /* 定义闪烁特效 */
+        @keyframes glow {
+            0% { box-shadow: 0 0 15px #00aaff; }
+            50% { box-shadow: 0 0 30px #00aaff; }
+            100% { box-shadow: 0 0 15px #00aaff; }
+        }
+
+        .slideshow-container {
+            animation: glow 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="slideshow-container">
+        <a href="../Index.html">
+        <img id="slideshow" src="../assets/AIGC/SciFi/scene/scene_01.png" alt="Slideshow Image"></a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalImages = 8;
+            const imageFolderPath = "../assets/AIGC/SciFi/scene";
+            let currentImageIndex = 0;
+
+            const slideshowImage = document.getElementById('slideshow');
+
+            // 更新图片
+            function updateImage() {
+                const imageNumber = (currentImageIndex + 1).toString().padStart(2, '0');
+                slideshowImage.src = `${imageFolderPath}/scene_${imageNumber}.png`;
+                currentImageIndex = (currentImageIndex + 1) % totalImages;
+            }
+
+            // 开始幻灯片放映
+            function startSlideshow() {
+                setTimeout(() => {
+                    updateImage();
+                    setInterval(updateImage, 3000);
+                }, 1000); // 首次显示图片1秒
+            }
+
+            startSlideshow();
+
+            // 点击图片时切换到下一张
+            slideshowImage.addEventListener('click', updateImage);
+        });
+    </script>
+</body>
+</html>

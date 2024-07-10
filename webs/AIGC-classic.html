@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic</title>
+    <style>
+        body {
+            background-color: #DED1B1;
+            background-image: url('https://www.transparenttextures.com/patterns/old-wall.png');
+            background-size: cover;
+            color: #000;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flower-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+        .flower {
+            font-size: 80px; /* 放大樱花 */
+            display: inline-block;
+            animation: spin 3s linear infinite;
+        }
+        .text {
+            font-size: 20px; /* 调整文字大小 */
+            color: black; /* 设置文字颜色 */
+            text-decoration: none; /* 去掉链接下划线 */
+            display: block;
+        }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .slideshow-container {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .slideshow-container img {
+            width: 100%;
+            border: 1px solid white;
+            border-radius: 10px;
+            animation: flow 3s infinite;
+        }
+
+        @keyframes flow {
+            0% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../Index.html" class="flower-container">
+        <div class="flower">🌸</div>
+        <span class="text">Return AIGC</span>
+    </a>
+    <div class="slideshow-container">
+        <img id="slideshow" src="../assets/AIGC/classic/classical_01.png" alt="Slideshow Image">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalImages = 17;
+            const imageFolderPath = "../assets/AIGC/classic";
+            let currentImageIndex = 0;
+
+            const slideshowImage = document.getElementById('slideshow');
+
+            function updateImage() {
+                const imageNumber = (currentImageIndex + 1).toString().padStart(2, '0');
+                slideshowImage.src = `${imageFolderPath}/classical_${imageNumber}.png`;
+                currentImageIndex = (currentImageIndex + 1) % totalImages;
+            }
+
+            function startSlideshow() {
+                setTimeout(() => {
+                    updateImage();
+                    setInterval(updateImage, 3000);
+                }, 1000); // 首次显示图片1秒
+            }
+
+            startSlideshow();
+
+            // 点击图片时切换到下一张
+            slideshowImage.addEventListener('click', updateImage);
+        });
+    </script>
+</body>
+</html>

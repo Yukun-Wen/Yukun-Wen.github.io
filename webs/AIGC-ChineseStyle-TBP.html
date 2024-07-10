@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChineseStyle-TBP</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #c0c4c3, #c0c4c3);
+            transition: background 1s ease-in-out;
+            overflow: hidden;
+        }
+
+        .slideshow-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .slideshow-container img {
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 10px;
+    animation: flow 3s infinite;
+}
+
+/* 流光特效 */
+@keyframes flow {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+}
+        /* 按钮相关代码 */
+        .button-container {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .return-button {
+            padding: 10px 30px;
+            background-color: rgba(0, 0, 0, 0.13);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15vh;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-menu flex-row">
+            <div class="nav-brand" >
+                <img src="../assets/logo.png" alt="Blog Title" class="small-image">
+            </div>
+            <div class="toggle-collapse">
+                <div class="toggle-icons">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+            <div>
+                <ul class="nav-items" style="margin-top:0px;">
+                    <li class="nav-link">
+                        <a href="#">Home</a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="../webs/AIGCHome.html">AIGC</a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="../webs/ArchitectureHomePage.html">Architecture</a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#articles">Publications</a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#Contact">Contact Me</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div class="social text-gary">
+                    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2632292881&site=qq&menu=yes"><i class="fab fa-qq"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- 新增顶部按钮 -->
+    <!-- <div class="button-container">
+        <button class="return-button" onclick="window.open('https://chatgpt.com/', '_blank')">Return AIGC</button>
+    </div> -->
+    <div class="button-container">
+        <button class="return-button" onclick="window.open('../Index.html')">Return AIGC</button>
+    </div>
+    <div class="slideshow-container">
+        <img id="slideshow" src="../assets/AIGC/ChinieseStyle/TheBookofPoetry/TheBookofPoetry_01.png" alt="Slideshow Image">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalImages = 9;
+            const imageFolderPath = "../assets/AIGC/ChinieseStyle/TheBookofPoetry";
+            let currentImageIndex = 0;
+
+            const slideshowImage = document.getElementById('slideshow');
+            const body = document.body;
+
+            const colors = [
+                '#c0c4c3', '#497568', '#57c3c2','#c4cbcf', '#7c1823', '#eef7f2', 
+                '#f9f4dc', '#134857', '#b7ae8f', '#373834'
+            ];
+
+            function updateImage() {
+                const imageNumber = (currentImageIndex + 1).toString().padStart(2, '0');
+                slideshowImage.src = `${imageFolderPath}/TheBookofPoetry_${imageNumber}.png`;
+                const nextColor = colors[currentImageIndex % colors.length];
+                const nextColorGradient = colors[(currentImageIndex + 1) % colors.length];
+                body.style.background = `linear-gradient(45deg, ${nextColor}, ${nextColorGradient})`;
+                currentImageIndex = (currentImageIndex + 1) % totalImages;
+            }
+
+            function startSlideshow() {
+                setTimeout(() => {
+                    updateImage();
+                    setInterval(updateImage, 3000);
+                }, 1000); // 首次显示图片1秒
+            }
+
+            startSlideshow();
+
+            // 点击图片时切换到下一张
+            slideshowImage.addEventListener('click', updateImage);
+        });
+    </script>
+</body>
+</html>
